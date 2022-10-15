@@ -1,12 +1,11 @@
 import React, { FunctionComponent } from "react";
 import {
-  EasingFunction,
   TouchableOpacity,
   StyleSheet,
-  Text,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
 import Animated, {
-  EasingFunctionFactory,
   useSharedValue,
   useAnimatedStyle,
   withTiming,
@@ -17,8 +16,10 @@ type ListItemProps = {
   item: string;
   expandItemHeight: number;
   defaultItemHeight: number;
-  duration: number;
-  easing?: EasingFunction | EasingFunctionFactory | undefined;
+  duration?: number;
+  itemStyle?: StyleProp<ViewStyle>;
+  easing?: {x1: number; y1: number; x2: number; y2: number};
+  children: JSX.Element;
 };
 
 export const ListItem: FunctionComponent<ListItemProps> = (props) => {
@@ -26,8 +27,12 @@ export const ListItem: FunctionComponent<ListItemProps> = (props) => {
   const style = useAnimatedStyle(() => {
     return {
       height: withTiming(height.value, {
-        duration: props.duration,
-        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+        duration: props.duration ?? 500,
+        easing: Easing.bezier(
+            props.easing?.x1 ?? 0.25,
+            props.easing?.y1 ?? 0.1,
+            props.easing?.x2 ?? 0.25,
+            props.easing?.y2 ?? 1),
       }),
     };
   });
@@ -41,31 +46,17 @@ export const ListItem: FunctionComponent<ListItemProps> = (props) => {
   }
 
   return (
-    <Animated.View style={[styles.itemContainer, style]}>
+    <Animated.View style={[props.itemStyle, style]}>
       <TouchableOpacity style={styles.touchableOpacity} onPress={setItemHeight}>
-        <Text style={styles.itemText}>{props.item}</Text>
+        {props.children}
       </TouchableOpacity>
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
-  itemText: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-    fontSize: 24,
-  },
-  itemContainer: {
-    backgroundColor: "yellow",
-    marginHorizontal: 12,
-    marginVertical: 8,
-    borderRadius: 18,
-  },
   touchableOpacity: {
     width: "100%",
     height: "100%",
-  },
-  highlight: {
-    fontWeight: "700",
   },
 });
