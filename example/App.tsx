@@ -1,61 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React, {type PropsWithChildren} from 'react';
+import React, {FunctionComponent} from 'react';
 import {
+  FlatList,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
-  View,
 } from 'react-native';
+import Animated, {
+  Easing,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<
-  PropsWithChildren<{
-    title: string;
-  }>
-> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -70,47 +30,56 @@ const App = () => {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+      <FlatList
+        data={['1', '2']}
+        renderItem={item => <ListItem item={item.item} />}
+      />
     </SafeAreaView>
   );
 };
 
+type ListItemProps = {
+  item: string;
+};
+
+const ListItem: FunctionComponent<ListItemProps> = ({item}) => {
+  const height = useSharedValue(100);
+
+  const style = useAnimatedStyle(() => {
+    return {
+      height: withTiming(height.value, {
+        duration: 500,
+        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+      }),
+    };
+  });
+
+  return (
+    <Animated.View style={[styles.itemContainer, style]}>
+      <TouchableOpacity
+        style={styles.touchableOpacity}
+        onPress={() => (height.value = 200)}>
+        <Text style={styles.itemText}>{item}</Text>
+      </TouchableOpacity>
+    </Animated.View>
+  );
+};
+
 const styles = StyleSheet.create({
-  sectionContainer: {
+  itemText: {
     marginTop: 32,
     paddingHorizontal: 24,
-  },
-  sectionTitle: {
     fontSize: 24,
-    fontWeight: '600',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  itemContainer: {
+    backgroundColor: 'yellow',
+    marginHorizontal: 12,
+    marginVertical: 8,
+    borderRadius: 18,
+  },
+  touchableOpacity: {
+    width: '100%',
+    height: '100%',
   },
   highlight: {
     fontWeight: '700',
