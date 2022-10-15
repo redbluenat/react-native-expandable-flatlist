@@ -1,0 +1,10 @@
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "eslint.enable": true,
+    "prettier.requireConfig": true,
+    "[groovy]": {
+      "editor.defaultFormatter": "NicolasVuillamy.vscode-groovy-lint"
+    }
+  }
+  
