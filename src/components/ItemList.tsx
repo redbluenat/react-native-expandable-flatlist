@@ -1,71 +1,87 @@
 import React, { FunctionComponent } from "react";
 import {
-  EasingFunction,
   TouchableOpacity,
   StyleSheet,
-  Text,
+  StyleProp,
+  ViewStyle,
+  ListRenderItemInfo,
+  SectionListRenderItemInfo,
 } from "react-native";
 import Animated, {
-  EasingFunctionFactory,
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   Easing,
 } from "react-native-reanimated";
+import { SectionItem } from "./List";
 
 type ListItemProps = {
-  item: string;
+  item: ListRenderItemInfo<any> | SectionItem;
   expandItemHeight: number;
   defaultItemHeight: number;
-  duration: number;
-  easing?: EasingFunction | EasingFunctionFactory | undefined;
+  duration?: number;
+  itemStyle?: StyleProp<ViewStyle>;
+  easing?: { x1: number; y1: number; x2: number; y2: number };
+  onItemPress?: (isExpand: boolean) => void;
+  renderListItem?: (item: ListRenderItemInfo<any>) => JSX.Element;
+  renderExpandListItem?: (item: ListRenderItemInfo<any>) => JSX.Element;
+  renderSectionItem?: (item: SectionItem) => JSX.Element;
 };
 
-export const ListItem: FunctionComponent<ListItemProps> = (props) => {
+export const ListItem: FunctionComponent<ListItemProps> = (
+  props: ListItemProps
+) => {
   const height = useSharedValue(props.defaultItemHeight);
+  const [expanded, setExpanded] = React.useState(false);
+
   const style = useAnimatedStyle(() => {
     return {
       height: withTiming(height.value, {
-        duration: props.duration,
-        easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+        duration: props.duration ?? 500,
+        easing: Easing.bezier(
+          props.easing?.x1 ?? 0.25,
+          props.easing?.y1 ?? 0.1,
+          props.easing?.x2 ?? 0.25,
+          props.easing?.y2 ?? 1
+        ),
       }),
     };
   });
 
   function setItemHeight() {
     if (height.value === props.defaultItemHeight) {
+      setExpanded(true);
       height.value = props.expandItemHeight;
+      if (props.onItemPress) {
+        props.onItemPress(true);
+      }
     } else {
+      setExpanded(false);
       height.value = props.defaultItemHeight;
+
+      if (props.onItemPress) {
+        props.onItemPress(false);
+      }
     }
   }
 
   return (
-    <Animated.View style={[styles.itemContainer, style]}>
+    <Animated.View style={[props.itemStyle, style]}>
       <TouchableOpacity style={styles.touchableOpacity} onPress={setItemHeight}>
-        <Text style={styles.itemText}>{props.item}</Text>
+        {props.renderListItem && props.renderListItem(props.item)}
+        {props.renderSectionItem &&
+          props.renderSectionItem(props.item as SectionItem)}
+        {props.renderExpandListItem &&
+          expanded &&
+          props.renderExpandListItem(props.item)}
       </TouchableOpacity>
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
-  itemText: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-    fontSize: 24,
-  },
-  itemContainer: {
-    backgroundColor: "yellow",
-    marginHorizontal: 12,
-    marginVertical: 8,
-    borderRadius: 18,
-  },
   touchableOpacity: {
     width: "100%",
     height: "100%",
-  },
-  highlight: {
-    fontWeight: "700",
   },
 });
