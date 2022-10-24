@@ -5,7 +5,6 @@ import {
   StyleProp,
   ViewStyle,
   ListRenderItemInfo,
-  SectionListRenderItemInfo,
 } from "react-native";
 import Animated, {
   useSharedValue,
@@ -23,14 +22,11 @@ type ListItemProps = {
   itemStyle?: StyleProp<ViewStyle>;
   easing?: { x1: number; y1: number; x2: number; y2: number };
   onItemPress?: (isExpand: boolean) => void;
-  renderListItem?: (item: ListRenderItemInfo<any>) => JSX.Element;
+  renderListItem?: (item: ListRenderItemInfo<any> | SectionItem) => JSX.Element;
   renderExpandListItem?: (item: ListRenderItemInfo<any>) => JSX.Element;
-  renderSectionItem?: (item: SectionItem) => JSX.Element;
 };
 
-export const ListItem: FunctionComponent<ListItemProps> = (
-  props: ListItemProps
-) => {
+export const ListItem = React.memo<ListItemProps>((props) => {
   const height = useSharedValue(props.defaultItemHeight);
   const [expanded, setExpanded] = React.useState(false);
 
@@ -69,15 +65,13 @@ export const ListItem: FunctionComponent<ListItemProps> = (
     <Animated.View style={[props.itemStyle, style]}>
       <TouchableOpacity style={styles.touchableOpacity} onPress={setItemHeight}>
         {props.renderListItem && props.renderListItem(props.item)}
-        {props.renderSectionItem &&
-          props.renderSectionItem(props.item as SectionItem)}
         {props.renderExpandListItem &&
           expanded &&
           props.renderExpandListItem(props.item)}
       </TouchableOpacity>
     </Animated.View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   touchableOpacity: {

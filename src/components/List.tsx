@@ -8,7 +8,8 @@ import {
   ViewStyle,
   SectionListRenderItemInfo,
   ListRenderItemInfo,
-  SectionListData,
+  SectionListProps,
+  FlatListProps,
 } from "react-native";
 import { ListItem } from "./ItemList";
 
@@ -19,6 +20,9 @@ export type SectionItem = SectionListRenderItemInfo<
     data: any[];
   }
 >;
+
+type SectionListType = Omit<SectionListProps<any, any>, "sections">;
+type FlatListType = Omit<FlatListProps<any>, "data">;
 
 type ListItemProps = {
   sectionList: boolean;
@@ -35,18 +39,15 @@ type ListItemProps = {
   duration?: number;
   easing?: { x1: number; y1: number; x2: number; y2: number };
   onItemPress?: (isExpand: boolean) => void;
-  renderSectionItem?: (item: SectionItem) => JSX.Element;
-  renderListItem?: (item: ListRenderItemInfo<any>) => JSX.Element;
+  renderItem?: (item: ListRenderItemInfo<any> | SectionItem) => JSX.Element;
   renderExpandListItem?: (item: ListRenderItemInfo<any>) => JSX.Element;
   renderSectionHeader?: (title: string) => JSX.Element;
-};
+} & SectionListType &
+  FlatListType;
 
-const AnimatedSectionList: FunctionComponent<ListItemProps> = (props) => {
-  if (
-    (props.sectionList && props.renderSectionItem === undefined) ||
-    (!props.sectionList && props.renderListItem === undefined)
-  ) {
-    throw new Error("renderSectionItem or renderListItem must be defined");
+const AnimatedSectionList = React.memo<ListItemProps>((props) => {
+  if (props.renderItem === undefined) {
+    throw new Error("renderItem must be defined");
   }
 
   if (
@@ -60,13 +61,10 @@ const AnimatedSectionList: FunctionComponent<ListItemProps> = (props) => {
     throw new Error("renderExpandListItem must be defined");
   }
 
-  if (
-    props.sectionList &&
-    props.sectionData &&
-    props.renderSectionItem !== undefined
-  ) {
+  if (props.sectionList && props.sectionData) {
     return (
       <SectionList
+        {...props}
         sections={props.sectionData}
         renderSectionHeader={(item) =>
           props.renderSectionHeader ? (
@@ -81,12 +79,11 @@ const AnimatedSectionList: FunctionComponent<ListItemProps> = (props) => {
           <ListItem
             item={item}
             onItemPress={props.onItemPress}
-            renderSectionItem={props.renderSectionItem}
             defaultItemHeight={props.defaultItemHeight}
             expandItemHeight={props.expandItemHeight}
             duration={props.duration}
             easing={props.easing}
-            renderListItem={props.renderListItem}
+            renderListItem={props.renderItem}
             renderExpandListItem={props.renderExpandListItem}
             itemStyle={props.sectionItemStyle}
           ></ListItem>
@@ -95,13 +92,10 @@ const AnimatedSectionList: FunctionComponent<ListItemProps> = (props) => {
     );
   }
 
-  if (
-    !props.sectionList &&
-    props.flatData &&
-    props.renderListItem !== undefined
-  ) {
+  if (!props.sectionList && props.flatData) {
     return (
       <FlatList
+        {...props}
         data={props.flatData}
         renderItem={(item) => (
           <ListItem
@@ -112,7 +106,7 @@ const AnimatedSectionList: FunctionComponent<ListItemProps> = (props) => {
             onItemPress={props.onItemPress}
             itemStyle={props.listItemStyle}
             easing={props.easing}
-            renderListItem={props.renderListItem}
+            renderListItem={props.renderItem}
             renderExpandListItem={props.renderExpandListItem}
           ></ListItem>
         )}
@@ -120,8 +114,8 @@ const AnimatedSectionList: FunctionComponent<ListItemProps> = (props) => {
     );
   }
 
-  return <> </>;
-};
+  return <></>;
+});
 
 const styles = StyleSheet.create({
   itemText: {
@@ -132,4 +126,5 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
+
 export default AnimatedSectionList;
