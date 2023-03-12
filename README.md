@@ -11,8 +11,8 @@ React Native Expandable Flatlist component for React Native, with support for iO
 
 |                                                             Android                                                             |                                                         iOS                                                         |
 | :-----------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------: |
-|              ![react-native-expandable-flatlist android demo](https://github.com/redbluenat/react-native-expandable-flatlist/blob/master/assets/section_android.gif?raw=true)                |            ![react-native-expandable-flatlist ios section demo](https://github.com/redbluenat/react-native-expandable-flatlist/blob/master/assets/section.gif?raw=true)            |
-|              ![react-native-expandable-flatlist flat list android demo](https://github.com/redbluenat/react-native-expandable-flatlist/blob/master/assets/flatlist_android.gif?raw=true)                |            ![react-native-expandable-flatlist ios flatlist demo](https://github.com/redbluenat/react-native-expandable-flatlist/blob/master/assets/flatlist.gif?raw=true)            |
+|              ![react-native-expandable-flatlist flat list android demo](https://github.com/redbluenat/react-native-expandable-flatlist/blob/master/example/assets/flatlist_android.gif?raw=true)                |            ![react-native-expandable-flatlist ios flatlist demo](https://github.com/redbluenat/react-native-expandable-flatlist/blob/master/example/assets/flatlist.gif?raw=true)            |
+|              ![react-native-expandable-flatlist android demo](https://github.com/redbluenat/react-native-expandable-flatlist/blob/master/example/assets/section_android.gif?raw=true)                |            ![react-native-expandable-flatlist ios section demo](https://github.com/redbluenat/react-native-expandable-flatlist/blob/master/example/assets/section.gif?raw=true)            |
 
 ## Getting started
 
