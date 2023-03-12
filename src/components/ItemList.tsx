@@ -31,6 +31,7 @@ export const ListItem = React.memo<ListItemProps>((props) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const style = useAnimatedStyle(() => {
+    "worklet";
     return {
       height: withTiming(height.value, {
         duration: props.duration ?? 500,

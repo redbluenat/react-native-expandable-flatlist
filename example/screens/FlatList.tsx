@@ -1,7 +1,7 @@
 import React from 'react';
 import {SafeAreaView, Text, View, Image, StyleSheet} from 'react-native';
 
-import ExpandableList from 'react-native-expandable-flatlist';
+import ExpandableList from '@redbluenat/react-native-expandable-flatlist';
 
 const LIST_ITEMS = 25;
 
