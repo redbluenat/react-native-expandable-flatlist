@@ -30,7 +30,7 @@ type ListItemProps = {
     title: string;
     data: any[];
   }[];
-  flatData?: any[];
+  listData?: any[];
   sectionItemStyle?: StyleProp<ViewStyle>;
   listItemStyle?: StyleProp<ViewStyle>;
   sectionListHeaderStyle?: StyleProp<ViewStyle>;
@@ -52,7 +52,7 @@ const AnimatedSectionList = React.memo<ListItemProps>((props) => {
 
   if (
     (props.sectionList && props.sectionData === undefined) ||
-    (!props.sectionList && props.flatData === undefined)
+    (!props.sectionList && props.listData === undefined)
   ) {
     throw new Error("sectionData or flatData must be defined");
   }
@@ -92,11 +92,11 @@ const AnimatedSectionList = React.memo<ListItemProps>((props) => {
     );
   }
 
-  if (!props.sectionList && props.flatData) {
+  if (!props.sectionList && props.listData) {
     return (
       <FlatList
         {...props}
-        data={props.flatData}
+        data={props.listData}
         renderItem={(item) => (
           <ListItem
             item={item}

@@ -12,7 +12,7 @@ declare type ListItemProps = {
         title: string;
         data: any[];
     }[];
-    flatData?: any[];
+    listData?: any[];
     sectionItemStyle?: StyleProp<ViewStyle>;
     listItemStyle?: StyleProp<ViewStyle>;
     sectionListHeaderStyle?: StyleProp<ViewStyle>;
