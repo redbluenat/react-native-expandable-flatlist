@@ -3,11 +3,11 @@ import {SafeAreaView, Text, View, Image, StyleSheet} from 'react-native';
 
 import ExpandableList from 'react-native-expandable-flatlist';
 
-const LIST_ITEMS = 100;
+const LIST_ITEMS = 25;
 
 const FlatListDemo = () => {
   function generateData() {
-    let data = [];
+    let data: string[] = [];
     for (let i = 0; i < LIST_ITEMS; i++) {
       data.push('Item list ' + i);
     }
@@ -18,12 +18,13 @@ const FlatListDemo = () => {
     <SafeAreaView style={styles.container}>
       <ExpandableList
         sectionList={false}
-        flatData={generateData()}
-        expandItemHeight={200}
+        listData={generateData()}
+        expandItemHeight={250}
         initialNumToRender={10}
         renderExpandListItem={({item}) => (
           <View style={styles.expandItemStyle}>
             <Text style={styles.expandText}>{item} expanded</Text>
+            <Image source={require('../assets/leo.png')} style={styles.image} />
           </View>
         )}
         duration={500}
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
   leftItemSection: {flex: 0.9},
   rightItemSection: {flex: 0.1},
   icon: {width: 20, height: 20},
+  image: {width: 100, height: 100, marginTop: 10},
   itemText: {fontWeight: '600'},
   expandItemStyle: {
     marginLeft: 24,

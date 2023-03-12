@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -14,13 +14,7 @@ const App = () => {
       <Tab.Navigator
         screenOptions={() => ({
           tabBarIcon: () => (
-            <Image
-              style={{
-                height: 20,
-                width: 20,
-              }}
-              source={require('./assets/list.png')}
-            />
+            <Image style={styles.image} source={require('./assets/list.png')} />
           ),
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'black',
@@ -31,5 +25,12 @@ const App = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    height: 20,
+    width: 20,
+  },
+});
 
 export default App;
