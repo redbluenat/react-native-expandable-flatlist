@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.13",
+    "@redbluenat/react-native-expandable-flatlist": "^1.0.0",
     "react": "18.1.0",
     "react-native": "0.70.3",
     "react-native-expandable-flatlist": "../src",
