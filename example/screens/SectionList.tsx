@@ -8,13 +8,31 @@ const SectionListDemo = () => {
     <ExpandableList
       sectionList={true}
       sectionData={[
-        {data: ['Item list 1', 'Item list 2', 'Item list 3'], title: 'Hey'},
+        {
+          data: ['Item list 1', 'Item list 2', 'Item list 3'],
+          title: 'Section 1',
+        },
+        {
+          data: ['Item list 1', 'Item list 2', 'Item list 3'],
+          title: 'Section 2',
+        },
+        {
+          data: ['Item list 1', 'Item list 2', 'Item list 3'],
+          title: 'Section 3',
+        },
       ]}
       expandItemHeight={200}
       duration={500}
       renderExpandListItem={({item}) => (
         <View style={styles.expandItemStyle}>
           <Text style={styles.expandText}>{item} expanded</Text>
+        </View>
+      )}
+      renderSectionHeader={title => (
+        <View style={styles.sectionListConfiner}>
+          <View style={styles.leftItemSection}>
+            <Text style={styles.itemText}>{title}</Text>
+          </View>
         </View>
       )}
       sectionListHeaderStyle={styles.sectionListConfiner}
