@@ -49,7 +49,7 @@ yarn add @redbluenat/react-native-expandable-flatlist
 import React from 'react';
 import {SafeAreaView, Text, View, Image, StyleSheet} from 'react-native';
 
-import ExpandableList from 'react-native-expandable-flatlist';
+import ExpandableList from '@redbluenat/react-native-expandable-flatlist';
 
 const LIST_ITEMS = 25;
 
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
 import React from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
 
-import ExpandableList from 'react-native-expandable-flatlist';
+import ExpandableList from '@redbluenat/react-native-expandable-flatlist';
 
 const SectionListDemo = () => {
   return (

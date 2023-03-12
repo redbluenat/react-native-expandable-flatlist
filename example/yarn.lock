@@ -1330,10 +1330,10 @@
   dependencies:
     nanoid "^3.1.23"
 
-"@redbluenat/react-native-expandable-flatlist@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@redbluenat/react-native-expandable-flatlist/-/react-native-expandable-flatlist-1.0.1.tgz#b8f3ef1a1665d07a9ee5d7270e80b684eb68d13a"
-  integrity sha512-iL7cp4bscMlpJsHxjjb/7JHo7F1Wz3VxeEO2BfNz6AJWqOM585WfLcNieMIbY+S9hA5TPvuYIbcUy/guvS9zvw==
+"@redbluenat/react-native-expandable-flatlist@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@redbluenat/react-native-expandable-flatlist/-/react-native-expandable-flatlist-1.0.2.tgz#30f8bca24db7116e1bb05d2a99ba078680e7880d"
+  integrity sha512-83w0jPP+Hd208w71O+3G6Wk0+Gsh/7eXA3C7uHkoflB1+93MabviHal3Jn08TUR/Qdsa9edlZA2b5wziqR809A==
   dependencies:
     react-native-reanimated "^2.11.0"
 
