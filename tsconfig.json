@@ -11,14 +11,16 @@
       "outDir": "lib",
       "declaration": true,
       "rootDir": "./src",
-      "typeRoots": ["node_modules/@types"]
+      "typeRoots": ["node_modules/@types"],
+      "skipLibCheck": true
     },
     "exclude": [
       "node_modules",
       "babel.config.js",
       "metro.config.js",
       "jest.config.js",
+      "example",
       "lib"
     ],
-    "include": ["src/*"]
+    "include": ["src/*"],
   }

@@ -1,6 +1,6 @@
 {
-  "name": "react-native-expandable-flatlist",
-  "author": "Natalia Majkowska-Stewart",
+  "name": "@redbluenat/react-native-expandable-flatlist",
+  "author": "Natalia MS",
   "version": "1.0.0",
   "homepage": "https://github.com/redbluenat/react-native-expandable-flatlist",
   "description": "Animated expandable FlatList",

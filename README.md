@@ -4,6 +4,8 @@
 
 React Native Expandable Flatlist component for React Native, with support for iOS, Android, and React Native Web. It works with custom components and styles.
 
+Library is using [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/docs/2.x/) version 2 for animations. Make sure you have installed it.
+
 
 **Support: RN >=0.59.0**
 
